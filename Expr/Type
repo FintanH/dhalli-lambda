@@ -1,0 +1,10 @@
+  λ(a : Type)
+→ < Var :
+      ./../Name
+  | App :
+      { _1 : a, _2 : a }
+  | Lam :
+      { var : ./../Name, expr : a }
+  | Lit :
+      ./../Lit/Type
+  >
