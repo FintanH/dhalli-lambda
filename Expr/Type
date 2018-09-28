@@ -4,7 +4,7 @@
   | App :
       { _1 : a, _2 : a }
   | Lam :
-      { var : ./../Name, expr : a }
+      { name : ./../Name, expr : a }
   | Lit :
       ./../Lit/Type
   >

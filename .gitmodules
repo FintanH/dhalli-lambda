@@ -1,0 +1,6 @@
+[submodule "dhall-bhat"]
+	path = dhall-bhat
+	url = https://github.com/FormationAI/dhall-bhat
+[submodule "dada"]
+	path = dada
+	url = https://github.com/sellout/dada

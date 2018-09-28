@@ -1,0 +1,38 @@
+    let Expr = ./Type
+
+in  ./../dhall-bhat/Traversable/fromTraverse
+    ./Type
+    (   λ(f : Type → Type)
+      → λ(applicative : ./../dhall-bhat/Applicative/Type f)
+      → λ(a : Type)
+      → λ(b : Type)
+      → λ(g : a → f b)
+      → λ(ts : ./Type a)
+      →     let E = constructors (Expr b)
+        
+        in  merge
+            { Var =
+                λ(name : ./../Name) → applicative.pure (Expr b) (E.Var name)
+            , App =
+                  λ(e : { _1 : a, _2 : a })
+                → ./../dhall-bhat/Applicative/liftA2
+                  f
+                  applicative
+                  b
+                  b
+                  (Expr b)
+                  (λ(x : b) → λ(y : b) → E.App { _1 = x, _2 = y })
+                  (g e._1)
+                  (g e._2)
+            , Lam =
+                  λ(e : { name : ./../Name, expr : a })
+                → applicative.map
+                  b
+                  (Expr b)
+                  (λ(x : b) → E.Lam { name = e.name, expr = x })
+                  (g e.expr)
+            , Lit =
+                λ(lit : ./../Lit/Type) → applicative.pure (Expr b) (E.Lit lit)
+            }
+            ts
+    )
